@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="file" onchange="showFile(this)">
+  <img id="img" alt="" srcset="">
+  <script>
+
+    function showFile(input) {
+      let file = input.files[0];
+
+      let reader = new FileReader();
+
+      reader.readAsDataURL(file);
+
+      // save the image data in cache
+      reader.onload = function () {
+        localStorage.setItem('image-item', reader.result);
+      };
+
+      reader.onerror = function () {
+        console.log(reader.error);
+      };
+
+      // restore the image from cache
+
+      // document.addEventListener("DOMContentLoaded", ()=>{
+      const recent_image = localStorage.getItem('image-item');
+
+      if (recent_image) {
+        document.querySelector('#img').setAttribute('src', recent_image);
+      }
+      // });
+
+    }
+  </script>
+</body>
+
+</html>
